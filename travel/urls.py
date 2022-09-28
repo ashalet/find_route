@@ -23,4 +23,5 @@ urlpatterns = [
     path('cities/', include(('cities.urls', 'cities'))),
     path('', home, name='home'),
     path('about/', about),
+
 ]

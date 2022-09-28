@@ -8,6 +8,11 @@ class HtmlForm(forms.Form):
 
 
 class CityForm(forms.ModelForm):
+    name = forms.CharField(label='Город', widget=forms.TextInput(attrs={
+        'placeholder': 'Введите город',
+        'class': 'form-control',
+
+    }))
     class Meta:
         model = City
         fields = ('name',)

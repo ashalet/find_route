@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+Редактировать
+{% endblock %}
+
+{% block content %}
+<h1>Редактирование города</h1>
+<a>Редактирование города {{ object }}?</a>
+<div class="col-md-4">
+    <form action="" method="post"> {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Редактировать</button>
+    </form>
+</div>
+{% endblock %}

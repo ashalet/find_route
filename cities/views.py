@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 
 from cities.forms import HtmlForm, CityForm
 from cities.models import City
@@ -42,3 +42,16 @@ class CityCreateView(CreateView):
     form_class = CityForm
     template_name = 'cities/create.html'
     success_url = reverse_lazy('cities:home')
+
+
+class CityDeleteView(DeleteView):
+    model = City
+    template_name = 'cities/delete.html'
+    success_url = reverse_lazy('cities:home')
+
+
+class CityUpdateView(UpdateView):
+    model = City
+    fields = ['name']
+    template_name = 'cities/update.html'
+    template_name_suffix = 'cities:home'

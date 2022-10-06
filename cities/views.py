@@ -1,8 +1,9 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
+from django.views.generic import DetailView, CreateView, DeleteView, UpdateView, ListView
 
 from cities.forms import HtmlForm, CityForm
 from cities.models import City
@@ -10,6 +11,10 @@ from cities.models import City
 __all__ = (
     'home',
     'City',
+    'CityDetailView',
+    'CityCreateView',
+    'CityDeleteView',
+    'CityUpdateView',
 
 )
 
@@ -28,8 +33,17 @@ def home(request, pk=None):
     form = CityForm()
 
     qs = City.objects.all()
-    context = {'objects_list': qs, 'form': form}
+    paginator = Paginator(qs, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj, 'form': form}
     return render(request, "cities/home.html", context)
+
+
+# class CityListView(ListView):
+#     paginate_by = 3
+#     model = City
+#     template_name = 'cities/home.html'
 
 
 class CityDetailView(DetailView):
